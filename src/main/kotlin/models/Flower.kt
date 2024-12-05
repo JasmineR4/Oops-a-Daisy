@@ -10,7 +10,6 @@ data class Flower(
 
     private var lastVariantId = 0
     private fun getNextVariantId() = lastVariantId++
-
     fun addVariant(variant: Variant) : Boolean {
         variant.variantId = getNextVariantId()
         return variants.add(variant)
