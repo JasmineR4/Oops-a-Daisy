@@ -48,7 +48,7 @@ fun mainMenu() = readNextInt(
          > |   8) Delete variant from a flower                 | 
          > -----------------------------------------------------  
          > | REPORT MENU FOR FLOWERS                           | 
-         > |   9) Search for all flowers (by flower name)     |
+         > |   9) Search for all flowers (by flower name)      |
          > |   11) .....                                       |
          > |   12) .....                                       |
          > |   13) .....                                       |
