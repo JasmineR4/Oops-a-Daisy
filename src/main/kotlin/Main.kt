@@ -194,7 +194,7 @@ fun deleteAVariant() {
         if (variant != null) {
             val isDeleted = flower.delete(variant.variantId)
             if (isDeleted) {
-                println("Delete Successful!")
+                println("Deleted Successfully!")
             } else {
                 println("Delete NOT Successful")
             }
