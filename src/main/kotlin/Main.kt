@@ -19,9 +19,9 @@ fun runMenu() {
             3 -> updateFlower()
             4 -> deleteFlower()
             //5 -> archiveFlower()
-            6 -> addVariantToFlower()
-            7 -> updateVariantContentsInFlower()
-            //8 -> deleteAVariant()
+            5 -> addVariantToFlower()
+            6 -> updateVariantContentsInFlower()
+            7 -> deleteAVariant()
             //9 -> markVariantStatus()
             10 -> searchFlowers()
             //15 -> searchVariants()
@@ -44,9 +44,9 @@ fun mainMenu() = readNextInt(
          > |   4) Delete a flower                              |
          > -----------------------------------------------------  
          > | VARIANT MENU                                      |
-         > |   6) Add variant to a flower                      |
-         > |   7) Update variant contents on a flower          |
-         > |   8) Delete variant from a flower                 | 
+         > |   5) Add variant to a flower                      |
+         > |   6) Update variant contents on a flower          |
+         > |   7) Delete variant from a flower                 | 
          > -----------------------------------------------------  
          > | REPORT MENU FOR FLOWERS                           | 
          > |   9) Search for all flowers (by flower name)      |
@@ -187,6 +187,20 @@ fun updateVariantContentsInFlower() {
     }
 }
 
+fun deleteAVariant() {
+    val flower: Flower? = askUserToChooseFlower()
+    if (flower != null) {
+        val variant: Variant? = askUserToChooseVariant(flower)
+        if (variant != null) {
+            val isDeleted = flower.delete(variant.variantId)
+            if (isDeleted) {
+                println("Delete Successful!")
+            } else {
+                println("Delete NOT Successful")
+            }
+        }
+    }
+}
 
 //------------------------------------
 //FLOWER REPORTS MENU
