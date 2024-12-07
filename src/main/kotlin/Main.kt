@@ -20,7 +20,7 @@ fun runMenu() {
             4 -> deleteFlower()
             //5 -> archiveFlower()
             6 -> addVariantToFlower()
-            //7 -> updateVariantContentsInFlower()
+            7 -> updateVariantContentsInFlower()
             //8 -> deleteAVariant()
             //9 -> markVariantStatus()
             10 -> searchFlowers()
@@ -49,7 +49,7 @@ fun mainMenu() = readNextInt(
          > |   8) Delete variant from a flower                 | 
          > -----------------------------------------------------  
          > | REPORT MENU FOR FLOWERS                           | 
-         > |   9) Search for all flowers (by flower name)     |
+         > |   9) Search for all flowers (by flower name)      |
          > |   11) .....                                       |
          > |   12) .....                                       |
          > |   13) .....                                       |
@@ -164,6 +164,29 @@ private fun addVariantToFlower() {
         else println("Add NOT Successful")
     }
 }
+fun updateVariantContentsInFlower() {
+    val flower: Flower? = askUserToChooseFlower()
+    if (flower != null) {
+        val variant: Variant? = askUserToChooseVariant(flower)
+        if (variant != null) {
+            val newContents = readNextLine("Enter new contents: ")
+            if (flower.update(variant.variantId, Variant(
+                    variantName = readNextLine("\t What is the Variants Name: "),
+                    expectedLifespan = readNextInt("\t What is the expected lifespan: "),
+                    colour = readNextLine("\t What is the Colour: "),
+                    isAvailable = readNextLine("\t Is it available (true or false): ").toBoolean(),
+                    price = readNextLine("\t What is the Price: ").toDoubleOrNull() ?: 0.0
+                ))) {
+                println("Item contents updated")
+            } else {
+                println("Item contents NOT updated")
+            }
+        } else {
+            println("Invalid Item Id")
+        }
+    }
+}
+
 
 //------------------------------------
 //FLOWER REPORTS MENU
@@ -191,6 +214,7 @@ fun exitApp() {
     exitProcess(0)
 }
 
+//HELPER FUNCTIONS
 
 private fun askUserToChooseFlower(): Flower? {
     listFlowers()
@@ -205,4 +229,15 @@ private fun askUserToChooseFlower(): Flower? {
         }
     }
     return null //selected note is not active
+}
+
+private fun askUserToChooseVariant(flower: Flower): Variant? {
+    if (flower.numberOfVariants() > 0) {
+        print(flower.listVariants())
+        return flower.findOne(readNextInt("\nEnter the id of the variant: "))
+    }
+    else{
+        println ("No variants for chosen Flower")
+        return null
+    }
 }
