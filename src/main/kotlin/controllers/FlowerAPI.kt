@@ -1,6 +1,7 @@
 package controllers
 
 import ie.setu.models.Flower
+import ie.setu.models.Variant
 import ie.setu.utils.formatListString
 import java.util.ArrayList
 
@@ -73,8 +74,9 @@ class FlowerAPI() {
     fun numberOfFlowers() = flowers.size
     /*
     fun numberOfArchivedFlowers(): Int = flowers.count { flower: Flower -> flower.isFlowerArchived }
-    fun numberOfActiveFlowers(): Int = flowers.count { flower: Flower -> !flower.isFlowerArchived }
 */
+   // fun numberOfActiveFlowers(): Int = flowers.count { flower: Flower -> !flower.meaning }
+
     // ----------------------------------------------
     //  SEARCHING METHODS
     // ---------------------------------------------

@@ -2,6 +2,7 @@ package ie.setu
 
 import controllers.FlowerAPI
 import ie.setu.models.Flower
+import ie.setu.models.Variant
 import ie.setu.utils.readNextInt
 import ie.setu.utils.readNextLine
 import kotlin.system.exitProcess
@@ -18,7 +19,7 @@ fun runMenu() {
             3 -> updateFlower()
             4 -> deleteFlower()
             //5 -> archiveFlower()
-            //6 -> addVariantToFlower()
+            6 -> addVariantToFlower()
             //7 -> updateVariantContentsInFlower()
             //8 -> deleteAVariant()
             //9 -> markVariantStatus()
@@ -42,7 +43,7 @@ fun mainMenu() = readNextInt(
          > |   3) Update a flower                              |
          > |   4) Delete a flower                              |
          > -----------------------------------------------------  
-         > | VARIANT MENU                                      | 
+         > | VARIANT MENU                                      |
          > |   6) Add variant to a flower                      |
          > |   7) Update variant contents on a flower          |
          > |   8) Delete variant from a flower                 | 
@@ -84,6 +85,8 @@ fun addFlower() {
 
 fun listFlowers() {
     if (flowerAPI.numberOfFlowers() > 0) {
+        listAllFlowers()
+        /*
         val option = readNextInt(
             """
                   > --------------------------------
@@ -97,7 +100,7 @@ fun listFlowers() {
             1 -> listAllFlowers()
             //2 -> listActiveFlowers()
             else -> println("Invalid option entered: $option")
-        }
+        }*/
     } else {
         println("Option Invalid - No flowers stored")
     }
@@ -147,7 +150,20 @@ fun deleteFlower() {
 //-------------------------------------------
 //VARIANT MENU (only available for active flowers)
 //-------------------------------------------
-
+private fun addVariantToFlower() {
+    val flower: Flower? = askUserToChooseFlower()
+    if (flower != null) {
+        if (flower.addVariant(Variant(
+                variantName = readNextLine("\t What is the Variants Name: "),
+                expectedLifespan = readNextInt("\t What is the expected lifespan: "),
+                colour = readNextLine("\t What is the Colour: "),
+                isAvailable = readNextLine("\t Is it available (true or false): ").toBoolean(),
+                price = readNextLine("\t What is the Price: ").toDoubleOrNull() ?: 0.0
+        )))
+            println("Add Successful!")
+        else println("Add NOT Successful")
+    }
+}
 
 //------------------------------------
 //FLOWER REPORTS MENU
@@ -173,4 +189,20 @@ fun searchFlowers() {
 fun exitApp() {
     println("Exiting...bye")
     exitProcess(0)
+}
+
+
+private fun askUserToChooseFlower(): Flower? {
+    listFlowers()
+    if (flowerAPI.numberOfFlowers() > 0) {
+        val flower = flowerAPI.findFlower(readNextInt("\nEnter the id of the flower: "))
+        if (flower != null) {
+
+                return flower //chosen flower is active
+            }
+         else {
+            println("Flower id is not valid")
+        }
+    }
+    return null //selected note is not active
 }
