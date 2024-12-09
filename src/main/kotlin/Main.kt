@@ -27,7 +27,7 @@ fun runMenu() {
             9 -> markVariantStatus()
             10 -> searchFlowers()
             15 -> searchVariants()
-            //16 -> listToDoVariants()
+            16 -> listAvailableVariants()
             0 -> exitApp()
             else -> println("Invalid menu choice: $option")
         }
@@ -309,6 +309,13 @@ fun searchVariants() {
     } else {
         println(searchResults)
     }
+}
+
+fun listAvailableVariants() {
+    if (flowerAPI.numberOfAvailableVariants() > 0) {
+        println("Total Available Variants: ${flowerAPI.numberOfAvailableVariants()}")
+    }
+    println(flowerAPI.listAvailableVariants())
 }
 
 //------------------------------------
