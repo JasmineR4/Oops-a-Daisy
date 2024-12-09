@@ -1,9 +1,6 @@
 package ie.setu.models
 
-import ie.setu.listAllFlowers
-import ie.setu.listFlowers
 import ie.setu.utils.formatSetString
-import ie.setu.models.Variant
 
 data class Flower(
     var flowerId: Int = 0,
@@ -73,7 +70,7 @@ fun update(id: Int, newVariant : Variant): Boolean {
         return """
 ════════════════════════════════════════════════════════
                          🌷🌷🌷
-    ${flowerId}: ${flowerName}
+    ${flowerId}: $flowerName
          In season($inSeason),
          Average Height($averageHeight),
          meaning($meaning),
@@ -83,14 +80,4 @@ $variantsList
 ════════════════════════════════════════════════════════""".trimMargin()
     }
 
-    fun checkVariantAvailableStatus(): Boolean {
-        if (variants.isNotEmpty()) {
-            for (variant in variants) {
-                if (!variant.isAvailable) {
-                    return false
-                }
-            }
-        }
-        return true //a note with empty items can be archived, or all items are complete
-    }
 }

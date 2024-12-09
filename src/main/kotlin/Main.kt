@@ -3,7 +3,6 @@ package ie.setu
 import controllers.FlowerAPI
 import ie.setu.models.Flower
 import ie.setu.models.Variant
-import ie.setu.utils.formatListString
 import ie.setu.utils.readNextInt
 import ie.setu.utils.readNextLine
 import ie.setu.utils.readNextChar
@@ -133,7 +132,6 @@ fun listFlowers() {
 }
 
 fun listAllFlowers() = println(flowerAPI.listAllFlowers())
-//fun listActiveFlowers() = println(flowerAPI.listActiveFlowers())
 
 fun listBloomFlowers() =println(flowerAPI.listBloomFlowers())
 
@@ -261,6 +259,7 @@ fun bloomFlower() {
 //-------------------------------------------
 //🌸VARIANT MENU🌸
 //-------------------------------------------
+
 private fun addVariantToFlower() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
@@ -473,7 +472,7 @@ private fun askUserToChooseFlower(): Flower? {
          """.trimMargin(">"))
         }
     }
-    return null //selected note is not active
+    return null //selected flower is not active
 }
 
 private fun askUserToChooseVariant(flower: Flower): Variant? {

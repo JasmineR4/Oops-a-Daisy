@@ -1,11 +1,10 @@
 package controllers
 
 import ie.setu.models.Flower
-import ie.setu.models.Variant
 import ie.setu.utils.formatListString
 import java.util.ArrayList
 
-class FlowerAPI() {
+class FlowerAPI {
 
     private var flowers = ArrayList<Flower>()
 
@@ -45,6 +44,7 @@ class FlowerAPI() {
     // ----------------------------------------------
     //  LISTING METHODS FOR FLOWER ArrayList
     // ----------------------------------------------
+
     fun listAllFlowers() =
         if (flowers.isEmpty()) """
 ════════════════════════════════════════════════════════
@@ -53,10 +53,6 @@ class FlowerAPI() {
             """.trimMargin(">")
         else formatListString(flowers)
 
-    /*fun listActiveFlowers() =
-        if (numberOfActiveFlowers() == 0) "No active flowers stored"
-        else formatListString(flowers.filter { flower -> !flower.isFlowerArchived })
-*/
     fun listBloomFlowers() =
         if (numberOfBloomFlowers() == 0) """
 ════════════════════════════════════════════════════════
@@ -71,8 +67,6 @@ class FlowerAPI() {
     fun numberOfFlowers() = flowers.size
 
     fun numberOfBloomFlowers(): Int = flowers.count { flower: Flower -> flower.inSeason }
-
-    // fun numberOfActiveFlowers(): Int = flowers.count { flower: Flower -> !flower.meaning }
 
     // ----------------------------------------------
     //  SEARCHING METHODS
@@ -148,6 +142,7 @@ class FlowerAPI() {
     // ----------------------------------------------
     //  COUNTING METHODS FOR ITEMS
     // ----------------------------------------------
+
     fun numberOfAvailableVariants(): Int {
         var numberOfAvailableVariants = 0
         for (flower in flowers) {
