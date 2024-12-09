@@ -111,4 +111,46 @@ class FlowerAPI() {
             else listOfFlowers
         }
     }
+
+    // ----------------------------------------------
+    //  LISTING METHODS FOR ITEMS
+    // ----------------------------------------------
+
+    fun listAvailableVariants(): String =
+        if (numberOfFlowers() == 0) "No Flowers stored"
+        else {
+            var listOfAvailableVariants = ""
+            for (flower in flowers) {
+                for (variant in flower.variants) {
+                    if (variant.isAvailable) {
+                        listOfAvailableVariants += """
+                        |${flower.flowerId}: ${flower.flowerName}
+                        |   ID: ${variant.variantId}
+                        |   Name: ${variant.variantName},
+                        |   Expected Lifespan (${variant.expectedLifespan} days),
+                        |   Colour (${variant.colour},
+                        |   Available (${if (variant.isAvailable) "Yes" else "No"}),
+                        |   Price (€${variant.price})
+                        |
+                    """.trimMargin()
+                    }
+                }
+            }
+            listOfAvailableVariants
+        }
+
+    // ----------------------------------------------
+    //  COUNTING METHODS FOR ITEMS
+    // ----------------------------------------------
+    fun numberOfAvailableVariants(): Int {
+        var numberOfAvailableVariants = 0
+        for (flower in flowers) {
+            for (variant in flower.variants) {
+                if (variant.isAvailable) {
+                    numberOfAvailableVariants++
+                }
+            }
+        }
+        return numberOfAvailableVariants
+    }
 }
