@@ -1,3 +1,4 @@
+
 package ie.setu
 
 import controllers.FlowerAPI
@@ -8,10 +9,20 @@ import ie.setu.utils.readNextLine
 import ie.setu.utils.readNextChar
 import kotlin.system.exitProcess
 
+
+//manages flower data
 private val flowerAPI = FlowerAPI()
 
+/**
+ * This function starts running the flower shop (Oops a Daisy)'s console app.
+ * Initiates the apps menu.
+ */
 fun main() = runMenu()
 
+/**
+ * Displays the main menu options and reads user input.
+ * @return the menu option selected by the user.
+ */
 fun runMenu() {
     do {
         when (val option = mainMenu()) {
@@ -37,6 +48,10 @@ fun runMenu() {
     } while (true)
 }
 
+/**
+ * Displays the main menu and reads user input.
+ * @return The menu option chosen by the user.
+ */
 fun mainMenu() = readNextInt(
     """
 ════════════════════════════════════════════════════════
@@ -76,6 +91,11 @@ fun mainMenu() = readNextInt(
 //------------------------------------
 //🌸THE FLOWER MENU🌸
 //------------------------------------
+/**
+ * Adds a new flower to the system.
+ * Prompts the user for flower details including
+ * @return confirmation message on choice
+ */
 fun addFlower() {
     val flowerName = readNextLine("What is the name of the flower? : ")
     val inSeason = readNextLine("The Flower is in season (true or false) : ").toBoolean()
@@ -100,7 +120,12 @@ fun addFlower() {
 """.trimMargin(">"))
     }
 }
-
+/**
+ * Lists all flowers currently stored in the system.
+ * Provides options to view:
+ * - All flowers
+ * - Only flowers currently blooming
+ */
 fun listFlowers() {
     if (flowerAPI.numberOfFlowers() > 0) {
 
@@ -130,12 +155,32 @@ fun listFlowers() {
 """.trimMargin(">"))
     }
 }
-
+/**
+ * Lists all flowers in the system.
+ */
 fun listAllFlowers() = println(flowerAPI.listAllFlowers())
 
+/**
+ * Lists only the flowers currently blooming.
+ */
 fun listBloomFlowers() =println(flowerAPI.listBloomFlowers())
 
-
+/**
+ * Updates an existing flower's details.
+ *
+ * Prompts the user to:
+ * - Select a flower by its ID.
+ * - Update the flower's name, in season status, average height, and symbolic meaning.
+ *
+ * Validates the flower ID and provides feedback on success or failure.
+ *
+ * @param id the ID of the flower to update.
+ * @param flowerName the updated name of the flower.
+ * @param inSeason the updated in season status of the flower.
+ * @param averageHeight the updated average height of the flower in meters.
+ * @param meaning the updated symbolic meaning of the flower.
+ * @return a message clarifying whether it was successful or not.
+ */
 fun updateFlower() {
     listFlowers()
     if (flowerAPI.numberOfFlowers() > 0) {
@@ -175,6 +220,17 @@ fun updateFlower() {
     }
 }
 
+/**
+ * Deletes an existing flower from the system.
+ *
+ * Prompts the user to:
+ * - Select a flower by its ID.
+ *
+ * Provides feedback on whether the flower was successfully deleted or not.
+ *
+ * @param id the ID of the flower to delete.
+ * @return true if the deletion was successful; false otherwise.
+ */
 fun deleteFlower() {
     listFlowers()
     if (flowerAPI.numberOfFlowers() > 0) {
@@ -197,6 +253,18 @@ fun deleteFlower() {
         }
     }
 }
+
+
+/**
+ * Changes the blooming status of a flower.
+ *
+ * Prompts the user to:
+ * - Select a flower by its ID.
+ * - Change its blooming status.
+ *
+ * @param flower the flower object whose status is to be updated.
+ * @return true if the blooming status was successfully changed; false otherwise.
+ */
 fun bloomFlower() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
@@ -259,7 +327,17 @@ fun bloomFlower() {
 //-------------------------------------------
 //🌸VARIANT MENU🌸
 //-------------------------------------------
-
+/**
+ * Adds a new variant to a selected flower.
+ *
+ * Prompts the user for:
+ * - Select a flower by its ID.
+ * - Details about the variant the user wants to add.
+ *
+ * @param flower the flower object to which the variant will be added.
+ * @param variant the details of the new variant to be added.
+ * @return true if the variant was successfully added; false otherwise.
+ */
 private fun addVariantToFlower() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
@@ -282,6 +360,19 @@ private fun addVariantToFlower() {
          """.trimMargin(">"))
     }
 }
+
+/**
+ * Updates the details of a variant in a selected flower.
+ *
+ * Prompts the user to:
+ * - Select a flower by its ID.
+ * - Select a variant by its ID.
+ * - Update the variant's details.
+ *
+ * @param flower the flower object containing the variant to be updated.
+ * @param variant the details of the updated variant.
+ * @return true if the variant was successfully updated; false otherwise.
+ */
 fun updateVariantContentsInFlower() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
@@ -317,6 +408,17 @@ fun updateVariantContentsInFlower() {
     }
 }
 
+/**
+ * Deletes a variant from a selected flower.
+ *
+ * Prompts the user to:
+ * - Select a flower by its ID.
+ * - Select a variant by its ID.
+ *
+ * @param flower the flower object containing the variant to be deleted.
+ * @param variant the variant to be deleted from the selected flower.
+ * @return true if the variant was successfully deleted; false otherwise.
+ */
 fun deleteAVariant() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
@@ -339,7 +441,18 @@ fun deleteAVariant() {
         }
     }
 }
-
+/**
+ * Change the availability status of a variant.
+ *
+ * Prompts the user to:
+ * - Select a flower by its ID.
+ * - Select a variant by its ID.
+ * - Change the variant's status between available and unavailable.
+ *
+ * @param flower the flower object containing the variant whose status is to be changed.
+ * @param variant the variant whose availability status is to be changed.
+ * @return true if the status was successfully toggled; false otherwise.
+ */
 fun markVariantStatus() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
@@ -404,6 +517,15 @@ fun markVariantStatus() {
 //🌸FLOWER REPORTS MENU🌸
 //------------------------------------
 
+/**
+ * Searches for flowers by their name.
+ *
+ * Prompts the user to:
+ * - Enter the name of the flower to search for.
+ * - Displays all matching results or indicates if no matches are found.
+ *
+ * @return a list of flowers matching the search criteria.
+ */
 fun searchFlowers() {
     val searchName = readNextLine("Enter the Flower name to search by: ")
     val searchResults = flowerAPI.searchFlowersByName(searchName)
@@ -421,6 +543,16 @@ fun searchFlowers() {
 //------------------------------------
 //🌸VARIANT REPORTS MENU🌸
 //------------------------------------
+
+/**
+ * Searches for variants by their name.
+ *
+ * Prompts the user to:
+ * - Enter the name of the variant to search for.
+ * - Displays all matching results or indicates if no matches are found.
+ *
+ * @return a list of variants matching the search criteria.
+ */
 fun searchVariants() {
     val searchName = readNextLine("Enter the Variant Name to search by: ")
     val searchResults = flowerAPI.searchVariantsByName(searchName)
@@ -435,6 +567,13 @@ fun searchVariants() {
     }
 }
 
+/**
+ * Lists all available variants.
+ *
+ * Displays the total number of available variants and their details.
+ *
+ * @return a formatted list of all available variants.
+ */
 fun listAvailableVariants() {
     if (flowerAPI.numberOfAvailableVariants() > 0) {
         println("Total Available Variants: ${flowerAPI.numberOfAvailableVariants()}")
@@ -445,6 +584,12 @@ fun listAvailableVariants() {
 //------------------------------------
 // 🌸Exit App🌸
 //------------------------------------
+
+/**
+ * Exits the application.
+ *
+ * Displays a farewell message and terminates the program.
+ */
 fun exitApp() {
     println("""
 ═════════════════════════════════════════════════════════
@@ -456,6 +601,14 @@ fun exitApp() {
 
 //🌸HELPER FUNCTIONS🌸
 
+/**
+ * Prompts the user to select a flower by ID.
+ *
+ * Lists all flowers and allows the user to choose one. If the ID is invalid,
+ * an error message is displayed.
+ *
+ * @return the selected flower, or null if no valid flower was selected.
+ */
 private fun askUserToChooseFlower(): Flower? {
     listFlowers()
     if (flowerAPI.numberOfFlowers() > 0) {
@@ -474,7 +627,15 @@ private fun askUserToChooseFlower(): Flower? {
     }
     return null //selected flower is not active
 }
-
+/**
+ * Prompts the user to select a variant by ID from a given flower.
+ *
+ * Lists all variants of the selected flower and allows the user to choose one.
+ * If no variants exist, an error message is displayed.
+ *
+ * @param flower the flower whose variants are to be listed.
+ * @return the selected variant, or null if no valid variant was selected.
+ */
 private fun askUserToChooseVariant(flower: Flower): Variant? {
     if (flower.numberOfVariants() > 0) {
         print(flower.listVariants())
