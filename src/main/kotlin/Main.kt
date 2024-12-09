@@ -3,6 +3,7 @@ package ie.setu
 import controllers.FlowerAPI
 import ie.setu.models.Flower
 import ie.setu.models.Variant
+import ie.setu.utils.formatListString
 import ie.setu.utils.readNextInt
 import ie.setu.utils.readNextLine
 import ie.setu.utils.readNextChar
@@ -91,22 +92,21 @@ fun addFlower() {
 
 fun listFlowers() {
     if (flowerAPI.numberOfFlowers() > 0) {
-        listAllFlowers()
-        /*
+
         val option = readNextInt(
             """
-                  > --------------------------------
-                  > |   1) View ALL flowers        |
-                  > |   2) View ACTIVE flowers     |
-                  > --------------------------------
+                  > --------------------------------------------
+                  > |   1) View all flowers                    |
+                  > |   2) View Currently blooming flowers     |
+                  > --------------------------------------------
          > ==>> """.trimMargin(">")
         )
 
         when (option) {
             1 -> listAllFlowers()
-            //2 -> listActiveFlowers()
+            2 -> listBloomFlowers()
             else -> println("Invalid option entered: $option")
-        }*/
+        }
     } else {
         println("Option Invalid - No flowers stored")
     }
@@ -114,6 +114,9 @@ fun listFlowers() {
 
 fun listAllFlowers() = println(flowerAPI.listAllFlowers())
 //fun listActiveFlowers() = println(flowerAPI.listActiveFlowers())
+
+fun listBloomFlowers() =println(flowerAPI.listBloomFlowers())
+
 
 fun updateFlower() {
     listFlowers()

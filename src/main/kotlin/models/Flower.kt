@@ -1,6 +1,9 @@
 package ie.setu.models
 
+import ie.setu.listAllFlowers
+import ie.setu.listFlowers
 import ie.setu.utils.formatSetString
+import ie.setu.models.Variant
 
 data class Flower(
     var flowerId: Int = 0,
@@ -48,11 +51,27 @@ fun update(id: Int, newVariant : Variant): Boolean {
         if (variants.isEmpty())  "\tNO VARIANTS ADDED"
         else  formatSetString(variants)
 
-    /*override fun toString(): String {
-        val archived = if (isNoteArchived) 'Y' else 'N'
-        return "$noteId: $noteTitle, Priority($notePriority), Category($noteCategory), Archived($archived) \n${listItems()}"
+    override fun toString(): String {
+        val inSeason = if (inSeason) "Yes" else "No"
+        val variantsList = if (variants.isEmpty())
+        {"No variants added" }
+        else {
+            variants.joinToString("\n") { variant ->
+                """ 
+                |   ${variant.variantId}:
+                |   ${variant.variantName}, 
+                |    Expected Lifespan(${variant.expectedLifespan} days),
+                |    Colour (${variant.colour}),
+                |    Available (${if (variant.isAvailable) "Yes" else "No"}),
+                |    Price: €${variant.price}
+                |    
+            """.trimMargin()
+            }
+        }
+        return """$flowerId: $flowerName, In season($inSeason), Average Height($averageHeight), meaning($meaning),
+            | variants [$variantsList] """.trimMargin()
     }
-    */
+
     fun checkVariantAvailableStatus(): Boolean {
         if (variants.isNotEmpty()) {
             for (variant in variants) {
