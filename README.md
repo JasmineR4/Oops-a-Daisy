@@ -7,6 +7,7 @@ Overview
   This system is useful for maintaining a catalog of flowers, including their seasonal availability and different variants.
 
 Features
+
   CRUD Operations for Flower objects and their Variant details.
   Listing of all flowers and available variants.
   Searching for flowers by name.
@@ -33,13 +34,16 @@ FlowerAPI Class: Manages a collection of Flower objects and provides CRUD operat
 How to Use
 
 Prerequisites
-  Use a software for Kotlin and JDK, I used IntelliJ community edition.
+
+Use a software for Kotlin and JDK, I used IntelliJ community edition.
 
 Running the Application
+
   Clone or download the repository
   Run the main.kt file.
 
 Example Commands
+
   Add a new flower: Use the provided methods to input flower details and add it to the system.
   List all flowers: Select the option from the menu by typing in the associated number.
   Search for flowers by name: Select the option from the menu to find and list flowers that match the name you input.
