@@ -42,7 +42,7 @@ class FlowerAPI() {
         return false
     }
 
-   /* fun archiveFlower(id: Int): Boolean {
+    /* fun archiveFlower(id: Int): Boolean {
         val foundFlower = findFlower(id)
         if (( foundFlower != null) && (!foundFlower.isFlowerArchived)
         //  && ( foundFlower.checkFlowerCompletionStatus())
@@ -75,14 +75,40 @@ class FlowerAPI() {
 
     fun numberOfBloomFlowers(): Int = flowers.count { flower: Flower -> flower.inSeason }
 
-   // fun numberOfActiveFlowers(): Int = flowers.count { flower: Flower -> !flower.meaning }
+    // fun numberOfActiveFlowers(): Int = flowers.count { flower: Flower -> !flower.meaning }
 
     // ----------------------------------------------
     //  SEARCHING METHODS
     // ---------------------------------------------
-    fun findFlower(flowerId : Int) =  flowers.find{ flower -> flower.flowerId == flowerId }
+    fun findFlower(flowerId: Int) = flowers.find { flower -> flower.flowerId == flowerId }
 
     fun searchFlowersByName(searchString: String) =
         formatListString(flowers.filter { flower -> flower.flowerName.contains(searchString, ignoreCase = true) })
 
+
+    fun searchVariantsByName(searchString: String): String {
+        return if (numberOfFlowers() == 0) {
+            "No Flowers stored"
+        } else {
+            var listOfFlowers = ""
+            for (flower in flowers) {
+                for (variant in flower.variants) {
+                    if (variant.variantName.contains(searchString, ignoreCase = true)) {
+                        listOfFlowers += """
+                        |${flower.flowerId}: ${flower.flowerName}
+                        |   ID: ${variant.variantId}
+                        |   Name: ${variant.variantName},
+                        |   Expected Lifespan (${variant.expectedLifespan} days),
+                        |   Colour (${variant.colour},
+                        |   Available (${if (variant.isAvailable) "Yes" else "No"}),
+                        |   Price (€${variant.price})
+                        |
+                    """.trimMargin()
+                    }
+                }
+            }
+            if (listOfFlowers == "") "No variants found for: $searchString"
+            else listOfFlowers
+        }
+    }
 }

@@ -25,8 +25,8 @@ fun runMenu() {
             7 -> updateVariantContentsInFlower()
             8 -> deleteAVariant()
             9 -> markVariantStatus()
-            10 -> searchFlowers()
-            //15 -> searchVariants()
+            //10 -> searchFlowers()
+            15 -> searchVariants()
             //16 -> listToDoVariants()
             0 -> exitApp()
             else -> println("Invalid menu choice: $option")
@@ -287,6 +287,7 @@ fun markVariantStatus() {
 //------------------------------------
 //FLOWER REPORTS MENU
 //------------------------------------
+/*
 fun searchFlowers() {
     val searchName = readNextLine("Enter the name to search by: ")
     val searchResults = flowerAPI.searchFlowersByName(searchName)
@@ -296,11 +297,19 @@ fun searchFlowers() {
         println(searchResults)
     }
 }
-
+*/
 //------------------------------------
 //VARIANT REPORTS MENU
 //------------------------------------
-
+fun searchVariants() {
+    val searchName = readNextLine("Enter the Variant Name to search by: ")
+    val searchResults = flowerAPI.searchVariantsByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No items found")
+    } else {
+        println(searchResults)
+    }
+}
 
 //------------------------------------
 // Exit App
