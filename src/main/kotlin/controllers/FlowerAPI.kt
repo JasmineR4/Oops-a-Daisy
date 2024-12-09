@@ -98,7 +98,7 @@ class FlowerAPI() {
                         |${flower.flowerId}: ${flower.flowerName}
                         |   ID: ${variant.variantId}
                         |   Name: ${variant.variantName},
-                        |   Expected Lifespan (${variant.expectedLifespan} days),
+                        |   Expected Blooming Time (${variant.expectedBLoomLife} days),
                         |   Colour (${variant.colour},
                         |   Available (${if (variant.isAvailable) "Yes" else "No"}),
                         |   Price (€${variant.price})
@@ -127,7 +127,7 @@ class FlowerAPI() {
                         |${flower.flowerId}: ${flower.flowerName}
                         |   ID: ${variant.variantId}
                         |   Name: ${variant.variantName},
-                        |   Expected Lifespan (${variant.expectedLifespan} days),
+                        |   Expected Blooming Time (${variant.expectedBLoomLife} days),
                         |   Colour (${variant.colour},
                         |   Available (${if (variant.isAvailable) "Yes" else "No"}),
                         |   Price (€${variant.price})

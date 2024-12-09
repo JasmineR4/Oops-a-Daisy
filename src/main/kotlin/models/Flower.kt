@@ -37,7 +37,7 @@ fun update(id: Int, newVariant : Variant): Boolean {
     //update the found object in the Set
     if (foundVariant != null){
         foundVariant.variantName = newVariant.variantName
-        foundVariant.expectedLifespan = newVariant.expectedLifespan
+        foundVariant.expectedBLoomLife = newVariant.expectedBLoomLife
         foundVariant.colour = newVariant.colour
         foundVariant.isAvailable = newVariant.isAvailable
         foundVariant.price = newVariant.price
@@ -58,9 +58,9 @@ fun update(id: Int, newVariant : Variant): Boolean {
         else {
             variants.joinToString("\n") { variant ->
                 """ 
-                |   ${variant.variantId}:
-                |   ${variant.variantName}, 
-                |    Expected Lifespan(${variant.expectedLifespan} days),
+                |   ID: ${variant.variantId}
+                |   Name: ${variant.variantName},
+                |    Expected Blooming Time(${variant.expectedBLoomLife} days),
                 |    Colour (${variant.colour}),
                 |    Available (${if (variant.isAvailable) "Yes" else "No"}),
                 |    Price: €${variant.price}

@@ -36,6 +36,7 @@ fun runMenu() {
 
 fun mainMenu() = readNextInt(
     """
+════════════════════════════════════════════════════════
       🌼🌸🌷🌺  FLOWER TRACKER APP  🌺🌷🌸🌼
 ════════════════════════════════════════════════════════
 
@@ -82,10 +83,10 @@ fun mainMenu() = readNextInt(
 //FLOWER MENU
 //------------------------------------
 fun addFlower() {
-    val flowerName = readNextLine("Enter a name for the flower: ")
-    val inSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
-    val averageHeight = readNextLine("Enter the average height: ").toDoubleOrNull() ?: 0.0
-    val meaning = readNextLine("Enter the flowers meaning: ")
+    val flowerName = readNextLine("What is the name of the flower? : ")
+    val inSeason = readNextLine("The Flower is in season (true or false) : ").toBoolean()
+    val averageHeight = readNextLine("What is the height of the flower? (in meters) : ").toDoubleOrNull() ?: 0.0
+    val meaning = readNextLine("What is the symbolic meaning of the flower? : ")
     val isAdded = flowerAPI.add(Flower(flowerName = flowerName,
         inSeason = inSeason,
         averageHeight = averageHeight,
@@ -104,8 +105,8 @@ fun listFlowers() {
         val option = readNextInt(
             """
 ════════════════════════════════════════════════════════
-1)      View all flowers                    
-2)      View Currently blooming flowers     
+1)      💐View all flowers 
+2)      🌼View Currently blooming flowers     
 ════════════════════════════════════════════════════════
          > ==>> """.trimMargin(">")
         )
@@ -132,10 +133,10 @@ fun updateFlower() {
         // only ask the user to choose the flower if flowers exist
         val id = readNextInt("Enter the id of the flower to update: ")
         if (flowerAPI.findFlower(id) != null) {
-            val flowerName = readNextLine("Enter a name for the flower: ")
-            val inSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
-            val averageHeight = readNextLine("Enter the height of the flower: ").toDoubleOrNull() ?: 0.0
-            val meaning = readNextLine("Enter the meaning of the flower: ")
+            val flowerName = readNextLine("What is the name of the flower? : ")
+            val inSeason = readNextLine("The Flower is in season (true or false) : ").toBoolean()
+            val averageHeight = readNextLine("What is the height of the flower? (in meters) : ").toDoubleOrNull() ?: 0.0
+            val meaning = readNextLine("What is the symbolic meaning of the flower? : ")
 
             // pass the index of the flower and the new flower details to FlowerAPI for updating and check for success.
             if (flowerAPI.update(id, Flower(0,
@@ -208,11 +209,11 @@ private fun addVariantToFlower() {
     val flower: Flower? = askUserToChooseFlower()
     if (flower != null) {
         if (flower.addVariant(Variant(
-                variantName = readNextLine("\t What is the Variants Name: "),
-                expectedLifespan = readNextInt("\t What is the expected lifespan: "),
-                colour = readNextLine("\t What is the Colour: "),
-                isAvailable = readNextLine("\t Is it available (true or false): ").toBoolean(),
-                price = readNextLine("\t What is the Price: ").toDoubleOrNull() ?: 0.0
+                variantName = readNextLine("\t What is the Variants Name? : "),
+                expectedBLoomLife = readNextInt("\t What is the expected Blooming Time? : "),
+                colour = readNextLine("\t What is the Colour?: "),
+                isAvailable = readNextLine("\t Is it available? (true or false) : ").toBoolean(),
+                price = readNextLine("\t What is the Price? : ").toDoubleOrNull() ?: 0.0
             )))
             println("Add Successful!")
         else println("Add NOT Successful")
@@ -225,15 +226,15 @@ fun updateVariantContentsInFlower() {
         if (variant != null) {
             //val newContents = readNextLine("Enter new contents: ")
             if (flower.update(variant.variantId, Variant(
-                    variantName = readNextLine("\t What is the Variants Name: "),
-                    expectedLifespan = readNextInt("\t What is the expected lifespan: "),
-                    colour = readNextLine("\t What is the Colour: "),
-                    isAvailable = readNextLine("\t Is it available (true or false): ").toBoolean(),
-                    price = readNextLine("\t What is the Price: ").toDoubleOrNull() ?: 0.0
+                    variantName = readNextLine("\t What is the Variants Name? : "),
+                    expectedBLoomLife = readNextInt("\t What is the expected Blooming Time? : "),
+                    colour = readNextLine("\t What is the Colour?: "),
+                    isAvailable = readNextLine("\t Is it available? (true or false) : ").toBoolean(),
+                    price = readNextLine("\t What is the Price? : ").toDoubleOrNull() ?: 0.0
                 ))) {
-                println("Item contents updated")
+                println("Variant contents updated")
             } else {
-                println("Item contents NOT updated")
+                println("Variant contents NOT updated")
             }
         } else {
             println("Invalid Item Id")
