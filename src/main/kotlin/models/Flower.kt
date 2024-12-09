@@ -1,9 +1,6 @@
 package ie.setu.models
 
-import ie.setu.listAllFlowers
-import ie.setu.listFlowers
 import ie.setu.utils.formatSetString
-import ie.setu.models.Variant
 
 data class Flower(
     var flowerId: Int = 0,
@@ -37,7 +34,7 @@ fun update(id: Int, newVariant : Variant): Boolean {
     //update the found object in the Set
     if (foundVariant != null){
         foundVariant.variantName = newVariant.variantName
-        foundVariant.expectedLifespan = newVariant.expectedLifespan
+        foundVariant.expectedBLoomLife = newVariant.expectedBLoomLife
         foundVariant.colour = newVariant.colour
         foundVariant.isAvailable = newVariant.isAvailable
         foundVariant.price = newVariant.price
@@ -56,30 +53,31 @@ fun update(id: Int, newVariant : Variant): Boolean {
         val variantsList = if (variants.isEmpty())
         {"No variants added" }
         else {
-            variants.joinToString("\n") { variant ->
-                """ 
-                |   ${variant.variantId}:
-                |   ${variant.variantName}, 
-                |    Expected Lifespan(${variant.expectedLifespan} days),
-                |    Colour (${variant.colour}),
-                |    Available (${if (variant.isAvailable) "Yes" else "No"}),
-                |    Price: €${variant.price}
-                |    
-            """.trimMargin()
+            variants.joinToString("\n") { variant ->"""
+         ═════════════════════════
+                  🪻🪻🪻
+         ID: ${variant.variantId}
+         Name: ${variant.variantName},
+         Expected Blooming Time (${variant.expectedBLoomLife} days),
+         Colour (${variant.colour},
+         Available (${if (variant.isAvailable) "Yes" else "No"}),
+         Price (€${variant.price})
+                  🪻🪻🪻
+         ═════════════════════════
+                    """.trimMargin()
             }
         }
-        return """$flowerId: $flowerName, In season($inSeason), Average Height($averageHeight), meaning($meaning),
-            | variants [$variantsList] """.trimMargin()
+        return """
+════════════════════════════════════════════════════════
+                         🌷🌷🌷
+    ${flowerId}: $flowerName
+         In season($inSeason),
+         Average Height($averageHeight),
+         meaning($meaning),
+         variants: 
+$variantsList
+                        🌷🌷🌷
+════════════════════════════════════════════════════════""".trimMargin()
     }
 
-    fun checkVariantAvailableStatus(): Boolean {
-        if (variants.isNotEmpty()) {
-            for (variant in variants) {
-                if (!variant.isAvailable) {
-                    return false
-                }
-            }
-        }
-        return true //a note with empty items can be archived, or all items are complete
-    }
 }

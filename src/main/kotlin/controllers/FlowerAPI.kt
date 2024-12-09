@@ -1,11 +1,10 @@
 package controllers
 
 import ie.setu.models.Flower
-import ie.setu.models.Variant
 import ie.setu.utils.formatListString
 import java.util.ArrayList
 
-class FlowerAPI() {
+class FlowerAPI {
 
     private var flowers = ArrayList<Flower>()
 
@@ -42,30 +41,24 @@ class FlowerAPI() {
         return false
     }
 
-    /* fun archiveFlower(id: Int): Boolean {
-        val foundFlower = findFlower(id)
-        if (( foundFlower != null) && (!foundFlower.isFlowerArchived)
-        //  && ( foundFlower.checkFlowerCompletionStatus())
-        ){
-            foundFlower.isFlowerArchived = true
-            return true
-        }
-        return false
-    }
-*/
     // ----------------------------------------------
     //  LISTING METHODS FOR FLOWER ArrayList
     // ----------------------------------------------
+
     fun listAllFlowers() =
-        if (flowers.isEmpty()) "No flowers stored"
+        if (flowers.isEmpty()) """
+════════════════════════════════════════════════════════
+                 🌻No flowers stored🌻
+════════════════════════════════════════════════════════
+            """.trimMargin(">")
         else formatListString(flowers)
 
-    /*fun listActiveFlowers() =
-        if (numberOfActiveFlowers() == 0) "No active flowers stored"
-        else formatListString(flowers.filter { flower -> !flower.isFlowerArchived })
-*/
     fun listBloomFlowers() =
-        if (numberOfBloomFlowers() == 0) "No currently blooming flowers stored"
+        if (numberOfBloomFlowers() == 0) """
+════════════════════════════════════════════════════════
+        No currently blooming flowers stored
+════════════════════════════════════════════════════════
+        """.trimMargin()
         else formatListString(flowers.filter { flower -> flower.inSeason })
 
     // ----------------------------------------------
@@ -74,8 +67,6 @@ class FlowerAPI() {
     fun numberOfFlowers() = flowers.size
 
     fun numberOfBloomFlowers(): Int = flowers.count { flower: Flower -> flower.inSeason }
-
-    // fun numberOfActiveFlowers(): Int = flowers.count { flower: Flower -> !flower.meaning }
 
     // ----------------------------------------------
     //  SEARCHING METHODS
@@ -87,22 +78,28 @@ class FlowerAPI() {
 
 
     fun searchVariantsByName(searchString: String): String {
-        return if (numberOfFlowers() == 0) {
-            "No Flowers stored"
+        return if (numberOfFlowers() == 0) { """
+════════════════════════════════════════════════════════
+                🌻No flowers stored🌻
+════════════════════════════════════════════════════════
+            """.trimMargin()
         } else {
             var listOfFlowers = ""
             for (flower in flowers) {
                 for (variant in flower.variants) {
                     if (variant.variantName.contains(searchString, ignoreCase = true)) {
                         listOfFlowers += """
-                        |${flower.flowerId}: ${flower.flowerName}
-                        |   ID: ${variant.variantId}
-                        |   Name: ${variant.variantName},
-                        |   Expected Lifespan (${variant.expectedLifespan} days),
-                        |   Colour (${variant.colour},
-                        |   Available (${if (variant.isAvailable) "Yes" else "No"}),
-                        |   Price (€${variant.price})
-                        |
+════════════════════════════════════════════════════════
+                         🌷🌷🌷
+    ${flower.flowerId}: ${flower.flowerName}
+         ID: ${variant.variantId}
+         Name: ${variant.variantName},
+         Expected Blooming Time (${variant.expectedBLoomLife} days),
+         Colour (${variant.colour},
+         Available (${if (variant.isAvailable) "Yes" else "No"}),
+         Price (€${variant.price})
+                        🌷🌷🌷
+════════════════════════════════════════════════════════
                     """.trimMargin()
                     }
                 }
@@ -124,14 +121,17 @@ class FlowerAPI() {
                 for (variant in flower.variants) {
                     if (variant.isAvailable) {
                         listOfAvailableVariants += """
-                        |${flower.flowerId}: ${flower.flowerName}
-                        |   ID: ${variant.variantId}
-                        |   Name: ${variant.variantName},
-                        |   Expected Lifespan (${variant.expectedLifespan} days),
-                        |   Colour (${variant.colour},
-                        |   Available (${if (variant.isAvailable) "Yes" else "No"}),
-                        |   Price (€${variant.price})
-                        |
+════════════════════════════════════════════════════════
+                        🪻🪻🪻
+    ${flower.flowerId}: ${flower.flowerName}
+         ID: ${variant.variantId}
+         Name: ${variant.variantName},
+         Expected Blooming Time (${variant.expectedBLoomLife} days),
+         Colour (${variant.colour},
+         Available (${if (variant.isAvailable) "Yes" else "No"}),
+         Price (€${variant.price})
+                        🪻🪻🪻
+════════════════════════════════════════════════════════
                     """.trimMargin()
                     }
                 }
@@ -142,6 +142,7 @@ class FlowerAPI() {
     // ----------------------------------------------
     //  COUNTING METHODS FOR ITEMS
     // ----------------------------------------------
+
     fun numberOfAvailableVariants(): Int {
         var numberOfAvailableVariants = 0
         for (flower in flowers) {
