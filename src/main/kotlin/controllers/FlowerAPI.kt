@@ -32,7 +32,7 @@ class FlowerAPI() {
         // if the flower exists, use the flower details passed as parameters to update the found flower in the ArrayList.
         if ((foundFlower != null) && (flower != null)) {
             foundFlower.flowerName = flower.flowerName
-            foundFlower.bloomingSeason = flower.bloomingSeason
+            foundFlower.inSeason = flower.inSeason
             foundFlower.averageHeight = flower.averageHeight
             foundFlower.meaning = flower.meaning
             return true

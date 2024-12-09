@@ -5,7 +5,7 @@ import ie.setu.utils.formatSetString
 data class Flower(
     var flowerId: Int = 0,
     var flowerName: String,
-    var bloomingSeason:  Boolean = false,
+    var inSeason:  Boolean = false,
     var averageHeight: Double,
     var meaning: String,
     var variants : MutableSet<Variant> = mutableSetOf()) {

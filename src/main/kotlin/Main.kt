@@ -19,12 +19,12 @@ fun runMenu() {
             2 -> listFlowers()
             3 -> updateFlower()
             4 -> deleteFlower()
-            //5 -> archiveFlower()
-            5 -> addVariantToFlower()
-            6 -> updateVariantContentsInFlower()
-            7 -> deleteAVariant()
-            8 -> markVariantStatus()
-            9 -> searchFlowers()
+            5 -> bloomFlower()
+            6 -> addVariantToFlower()
+            7 -> updateVariantContentsInFlower()
+            8 -> deleteAVariant()
+            9 -> markVariantStatus()
+            10 -> searchFlowers()
             //15 -> searchVariants()
             //16 -> listToDoVariants()
             0 -> exitApp()
@@ -43,15 +43,16 @@ fun mainMenu() = readNextInt(
          > |   2) List flowers                                 |
          > |   3) Update a flower                              |
          > |   4) Delete a flower                              |
+         > |   5) Change flowers blooming status               |
          > -----------------------------------------------------  
          > | VARIANT MENU                                      |
-         > |   5) Add variant to a flower                      |
-         > |   6) Update variant contents on a flower          |
-         > |   7) Delete variant from a flower                 | 
-         > |   8) Change variant availability status           | 
+         > |   6) Add variant to a flower                      |
+         > |   7) Update variant contents on a flower          |
+         > |   8) Delete variant from a flower                 | 
+         > |   9) Change variant availability status           | 
          > -----------------------------------------------------  
          > | REPORT MENU FOR FLOWERS                           | 
-         > |   9) Search for all flowers (by flower name)      |
+         > |   10) Search for all flowers (by flower name)     |
          > |   11) .....                                       |
          > |   12) .....                                       |
          > |   13) .....                                       |
@@ -73,11 +74,11 @@ fun mainMenu() = readNextInt(
 //------------------------------------
 fun addFlower() {
     val flowerName = readNextLine("Enter a name for the flower: ")
-    val bloomingSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
+    val inSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
     val averageHeight = readNextLine("Enter the average height: ").toDoubleOrNull() ?: 0.0
     val meaning = readNextLine("Enter the flowers meaning: ")
     val isAdded = flowerAPI.add(Flower(flowerName = flowerName,
-        bloomingSeason = bloomingSeason,
+        inSeason = inSeason,
         averageHeight = averageHeight,
         meaning = meaning))
 
@@ -121,14 +122,14 @@ fun updateFlower() {
         val id = readNextInt("Enter the id of the flower to update: ")
         if (flowerAPI.findFlower(id) != null) {
             val flowerName = readNextLine("Enter a name for the flower: ")
-            val bloomingSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
+            val inSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
             val averageHeight = readNextLine("Enter the height of the flower: ").toDoubleOrNull() ?: 0.0
             val meaning = readNextLine("Enter the meaning of the flower: ")
 
             // pass the index of the flower and the new flower details to FlowerAPI for updating and check for success.
             if (flowerAPI.update(id, Flower(0,
                     flowerName,
-                    bloomingSeason,
+                    inSeason,
                     averageHeight,
                     meaning))){
                 println("Update Successful")
@@ -152,6 +153,39 @@ fun deleteFlower() {
             println("Delete Successful!")
         } else {
             println("Delete NOT Successful")
+        }
+    }
+}
+fun bloomFlower() {
+    val flower: Flower? = askUserToChooseFlower()
+    if (flower != null) {
+
+        var changeStatus = 'X'
+        if (flower.inSeason) {
+            changeStatus = readNextChar("The flower is currently in season... do you want to mark it as out of season? (Y for yes): ")
+            if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
+                flower.inSeason = false
+            println("You have changed this flowers status to out of season")
+        }
+            else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
+                println("This flowers status has not changed")
+            }
+        else {
+            println("invalid option")
+        }
+        }
+        else {
+            changeStatus = readNextChar("The flower is currently out of season... do you want to mark it as in season? (Y for yes): ")
+            if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
+                flower.inSeason = true
+                println("You have changed this flowers status to in season")
+        }
+            else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
+                println("This flowers status has not changed")
+            }
+        else {
+            println("invalid option")
+        }
         }
     }
 }
@@ -223,10 +257,12 @@ fun markVariantStatus() {
                     variant.isAvailable = false
                 println("You have changed this variants status to unavailable")
                 }
+                else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
+                    println("This variants status has not changed")
+                }
                 else {
                     println("invalid option")
                 }
-
             }
             else {
                 changeStatus = readNextChar("The Variant is currently unavailable...do you want to mark it as available? (Y for yes): ")
@@ -234,6 +270,9 @@ fun markVariantStatus() {
                     variant.isAvailable = true
                 println("You have changed this variants status to available")
             }
+                else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
+                    println("This variants status has not changed")
+                }
             else {
                 println("invalid option")
             }
