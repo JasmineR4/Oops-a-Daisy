@@ -219,15 +219,24 @@ fun markVariantStatus() {
             var changeStatus = 'X'
             if (variant.isAvailable) {
                 changeStatus = readNextChar("The Variant is currently available...do you want to mark it as unavailable? (Y for yes): ")
-                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y')) {
                     variant.isAvailable = false
                 println("You have changed this variants status to unavailable")
+                }
+                else {
+                    println("invalid option")
+                }
+
             }
             else {
                 changeStatus = readNextChar("The Variant is currently unavailable...do you want to mark it as available? (Y for yes): ")
-                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                     variant.isAvailable = true
                 println("You have changed this variants status to available")
+            }
+            else {
+                println("invalid option")
+            }
             }
         }
     }
