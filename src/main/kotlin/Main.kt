@@ -29,7 +29,11 @@ fun runMenu() {
             15 -> searchVariants()
             16 -> listAvailableVariants()
             0 -> exitApp()
-            else -> println("Invalid menu choice: $option")
+            else -> println("""
+════════════════════════════════════════════════════════
+       🌼Invalid menu option entered: $option🌼
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
         }
     } while (true)
 }
@@ -39,44 +43,35 @@ fun mainMenu() = readNextInt(
 ════════════════════════════════════════════════════════
       🌼🌸🌷🌺  FLOWER TRACKER APP  🌺🌷🌸🌼
 ════════════════════════════════════════════════════════
-
                     FLOWER MENU:
 1)      Add a flower
 2)      List flowers
 3)      Update a flower
 4)      Delete a flower
 5)      Change flowers blooming status
-
 ════════════════════════════════════════════════════════
-
                    VARIANT MENU:
 6)      Add variant to a flower
 7)      Update variant contents on a flower
 8)      Delete variant from a flower
 9)      Change variant availability status
-
 ════════════════════════════════════════════════════════
-
             💐 REPORT MENU FOR FLOWERS:
 10)     Search for all flowers (by flower name)
 11)     ...
 12)     ...
 13)     ...
 14)     ...
-
 ════════════════════════════════════════════════════════
-
             🌿 REPORT MENU FOR VARIANTS:
 15)     Search for all variants (by variant name)
 16)     List all available Variants in stock
 17)     ...
 18      ...
-
 ════════════════════════════════════════════════════════
-
 0)      Exit
 ════════════════════════════════════════════════════════
-""".trimMargin(">")
+> ==>>""".trimMargin(">")
 )
 
 //------------------------------------
@@ -93,9 +88,17 @@ fun addFlower() {
         meaning = meaning))
 
     if (isAdded) {
-        println("Added Successfully")
+        println("""
+════════════════════════════════════════════════════════
+                 💐Add Successful💐
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
     } else {
-        println("Add Failed")
+        println("""
+════════════════════════════════════════════════════════
+                 💐Add UnSuccessful💐
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
     }
 }
 
@@ -114,10 +117,18 @@ fun listFlowers() {
         when (option) {
             1 -> listAllFlowers()
             2 -> listBloomFlowers()
-            else -> println("Invalid option entered: $option")
+            else -> println("""
+════════════════════════════════════════════════════════
+         🌼Invalid option entered: $option🌼
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
         }
     } else {
-        println("Option Invalid - No flowers stored")
+        println("""
+════════════════════════════════════════════════════════
+         🌺Option Invalid - No flowers stored🌺
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
     }
 }
 
@@ -144,12 +155,24 @@ fun updateFlower() {
                     inSeason,
                     averageHeight,
                     meaning))){
-                println("Update Successful")
+                println("""
+════════════════════════════════════════════════════════
+                🌺Update Successful🌺
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
             } else {
-                println("Update Failed")
+                println("""
+════════════════════════════════════════════════════════
+                🌺Update UnSuccessful🌺
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
             }
         } else {
-            println("There are no flowers for this ID number")
+            println("""
+════════════════════════════════════════════════════════
+     🌺There are no flowers for this ID number🌺
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
         }
     }
 }
@@ -162,9 +185,17 @@ fun deleteFlower() {
         // pass the index of the flower to FlowerAPI for deleting and check for success.
         val flowerToDelete = flowerAPI.delete(id)
         if (flowerToDelete) {
-            println("Delete Successful!")
+            println("""
+════════════════════════════════════════════════════════
+                🏵️Delete Successful🏵️
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
         } else {
-            println("Delete NOT Successful")
+            println("""
+════════════════════════════════════════════════════════
+               🏵️Delete UnSuccessful🏵️  
+════════════════════════════════════════════════════════
+""".trimMargin(">"))
         }
     }
 }
@@ -177,26 +208,51 @@ fun bloomFlower() {
             changeStatus = readNextChar("The flower is currently in season... do you want to mark it as out of season? (Y for yes): ")
             if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                 flower.inSeason = false
-                println("You have changed this flowers status to out of season")
+                println(
+                    """
+═════════════════════════════════════════════════════════
+🌹You have changed this flowers status to out of season🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
             else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
-                println("This flowers status has not changed")
+                println("""
+═════════════════════════════════════════════════════════
+      🌹You have not changed this flowers status🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
             else {
-                println("invalid option")
+                println("""
+═════════════════════════════════════════════════════════
+                   🌹Invalid Option🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
         }
         else {
             changeStatus = readNextChar("The flower is currently out of season... do you want to mark it as in season? (Y for yes): ")
             if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                 flower.inSeason = true
-                println("You have changed this flowers status to in season")
+                println("""
+═════════════════════════════════════════════════════════
+🪷You have changed this flowers status to in season🪷
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
             else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
-                println("This flowers status has not changed")
+                println("""
+═════════════════════════════════════════════════════════
+      🪷You have not changed this flowers status🪷
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
             else {
-                println("invalid option")
+                println("""
+═════════════════════════════════════════════════════════
+                   🪷Invalid Option🪷
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
         }
     }
@@ -215,8 +271,16 @@ private fun addVariantToFlower() {
                 isAvailable = readNextLine("\t Is it available? (true or false) : ").toBoolean(),
                 price = readNextLine("\t What is the Price? : ").toDoubleOrNull() ?: 0.0
             )))
-            println("Add Successful!")
-        else println("Add NOT Successful")
+            println("""
+═════════════════════════════════════════════════════════
+                   🌸Add Successful!🌸
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
+        else println("""
+═════════════════════════════════════════════════════════
+                 🌸Add NOT Successful🌸
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
     }
 }
 fun updateVariantContentsInFlower() {
@@ -232,12 +296,24 @@ fun updateVariantContentsInFlower() {
                     isAvailable = readNextLine("\t Is it available? (true or false) : ").toBoolean(),
                     price = readNextLine("\t What is the Price? : ").toDoubleOrNull() ?: 0.0
                 ))) {
-                println("Variant contents updated")
+                println("""
+═════════════════════════════════════════════════════════
+              🌻Variant contents updated🌻
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             } else {
-                println("Variant contents NOT updated")
+                println("""
+═════════════════════════════════════════════════════════
+             🌻Variant contents NOT updated🌻
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
         } else {
-            println("Invalid Item Id")
+            println("""
+═════════════════════════════════════════════════════════
+                  🌻Invalid Variant Id🌻
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
         }
     }
 }
@@ -249,9 +325,17 @@ fun deleteAVariant() {
         if (variant != null) {
             val isDeleted = flower.delete(variant.variantId)
             if (isDeleted) {
-                println("Deleted Successfully!")
+                println("""
+═════════════════════════════════════════════════════════
+                 🏵️Deleted Successfully!🏵️
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             } else {
-                println("Delete NOT Successful")
+                println("""
+═════════════════════════════════════════════════════════
+               🏵️Delete NOT Successfully!🏵️
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
             }
         }
     }
@@ -267,26 +351,50 @@ fun markVariantStatus() {
                 changeStatus = readNextChar("The Variant is currently available...do you want to mark it as unavailable? (Y for yes): ")
                 if ((changeStatus == 'Y') ||  (changeStatus == 'y')) {
                     variant.isAvailable = false
-                    println("You have changed this variants status to unavailable")
+                    println("""
+═════════════════════════════════════════════════════════
+🌹You have changed this variants status to unavailable🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
                 }
                 else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
-                    println("This variants status has not changed")
+                    println("""
+═════════════════════════════════════════════════════════
+        🌹This variants status has not changed🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
                 }
                 else {
-                    println("invalid option")
+                    println("""
+═════════════════════════════════════════════════════════
+                    🌹invalid option🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
                 }
             }
             else {
                 changeStatus = readNextChar("The Variant is currently unavailable...do you want to mark it as available? (Y for yes): ")
                 if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                     variant.isAvailable = true
-                    println("You have changed this variants status to available")
+                    println("""
+═════════════════════════════════════════════════════════
+🌹You have changed this variants status to available🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
                 }
                 else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
-                    println("This variants status has not changed")
+                    println("""
+═════════════════════════════════════════════════════════
+        🌹This variants status has not changed🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
                 }
                 else {
-                    println("invalid option")
+                    println("""
+═════════════════════════════════════════════════════════
+                    🌹invalid option🌹
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
                 }
             }
         }
@@ -301,7 +409,11 @@ fun searchFlowers() {
     val searchName = readNextLine("Enter the Flower name to search by: ")
     val searchResults = flowerAPI.searchFlowersByName(searchName)
     if (searchResults.isEmpty()) {
-        println("No flowers found")
+        println("""
+═════════════════════════════════════════════════════════
+                    🌻No Flower Found🌻
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
     } else {
         println(searchResults)
     }
@@ -314,7 +426,11 @@ fun searchVariants() {
     val searchName = readNextLine("Enter the Variant Name to search by: ")
     val searchResults = flowerAPI.searchVariantsByName(searchName)
     if (searchResults.isEmpty()) {
-        println("No items found")
+        println("""
+═════════════════════════════════════════════════════════
+                    🌻No Variants Found🌻
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
     } else {
         println(searchResults)
     }
@@ -331,7 +447,11 @@ fun listAvailableVariants() {
 // Exit App
 //------------------------------------
 fun exitApp() {
-    println("Exiting...bye")
+    println("""
+═════════════════════════════════════════════════════════
+                   🌻Exiting, Goodbye🌻
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
     exitProcess(0)
 }
 
@@ -346,7 +466,11 @@ private fun askUserToChooseFlower(): Flower? {
             return flower //chosen flower is active
         }
         else {
-            println("Flower id is not valid")
+            println("""
+═════════════════════════════════════════════════════════
+                🌸Flower id is not valid🌸
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
         }
     }
     return null //selected note is not active
@@ -358,7 +482,11 @@ private fun askUserToChooseVariant(flower: Flower): Variant? {
         return flower.findOne(readNextInt("\nEnter the id of the variant: "))
     }
     else{
-        println ("No variants for chosen Flower")
+        println ("""
+═════════════════════════════════════════════════════════
+            🌸No variants for chosen Flower🌸
+═════════════════════════════════════════════════════════
+         """.trimMargin(">"))
         return null
     }
 }

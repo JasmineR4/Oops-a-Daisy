@@ -57,7 +57,11 @@ class FlowerAPI() {
     //  LISTING METHODS FOR FLOWER ArrayList
     // ----------------------------------------------
     fun listAllFlowers() =
-        if (flowers.isEmpty()) "No flowers stored"
+        if (flowers.isEmpty()) """
+════════════════════════════════════════════════════════
+                 🌻No flowers stored🌻
+════════════════════════════════════════════════════════
+            """.trimMargin(">")
         else formatListString(flowers)
 
     /*fun listActiveFlowers() =
@@ -65,7 +69,11 @@ class FlowerAPI() {
         else formatListString(flowers.filter { flower -> !flower.isFlowerArchived })
 */
     fun listBloomFlowers() =
-        if (numberOfBloomFlowers() == 0) "No currently blooming flowers stored"
+        if (numberOfBloomFlowers() == 0) """
+════════════════════════════════════════════════════════
+        No currently blooming flowers stored
+════════════════════════════════════════════════════════
+        """.trimMargin()
         else formatListString(flowers.filter { flower -> flower.inSeason })
 
     // ----------------------------------------------
@@ -87,22 +95,28 @@ class FlowerAPI() {
 
 
     fun searchVariantsByName(searchString: String): String {
-        return if (numberOfFlowers() == 0) {
-            "No Flowers stored"
+        return if (numberOfFlowers() == 0) { """
+            ════════════════════════════════════════════════════════
+            🌻No flowers stored🌻
+            ════════════════════════════════════════════════════════
+            """.trimMargin()
         } else {
             var listOfFlowers = ""
             for (flower in flowers) {
                 for (variant in flower.variants) {
                     if (variant.variantName.contains(searchString, ignoreCase = true)) {
                         listOfFlowers += """
-                        |${flower.flowerId}: ${flower.flowerName}
-                        |   ID: ${variant.variantId}
-                        |   Name: ${variant.variantName},
-                        |   Expected Blooming Time (${variant.expectedBLoomLife} days),
-                        |   Colour (${variant.colour},
-                        |   Available (${if (variant.isAvailable) "Yes" else "No"}),
-                        |   Price (€${variant.price})
-                        |
+════════════════════════════════════════════════════════
+                         🌷🌷🌷
+    ${flower.flowerId}: ${flower.flowerName}
+         ID: ${variant.variantId}
+         Name: ${variant.variantName},
+         Expected Blooming Time (${variant.expectedBLoomLife} days),
+         Colour (${variant.colour},
+         Available (${if (variant.isAvailable) "Yes" else "No"}),
+         Price (€${variant.price})
+                        🌷🌷🌷
+════════════════════════════════════════════════════════
                     """.trimMargin()
                     }
                 }
@@ -124,14 +138,17 @@ class FlowerAPI() {
                 for (variant in flower.variants) {
                     if (variant.isAvailable) {
                         listOfAvailableVariants += """
-                        |${flower.flowerId}: ${flower.flowerName}
-                        |   ID: ${variant.variantId}
-                        |   Name: ${variant.variantName},
-                        |   Expected Blooming Time (${variant.expectedBLoomLife} days),
-                        |   Colour (${variant.colour},
-                        |   Available (${if (variant.isAvailable) "Yes" else "No"}),
-                        |   Price (€${variant.price})
-                        |
+════════════════════════════════════════════════════════
+                        🪻🪻🪻
+    ${flower.flowerId}: ${flower.flowerName}
+         ID: ${variant.variantId}
+         Name: ${variant.variantName},
+         Expected Blooming Time (${variant.expectedBLoomLife} days),
+         Colour (${variant.colour},
+         Available (${if (variant.isAvailable) "Yes" else "No"}),
+         Price (€${variant.price})
+                        🪻🪻🪻
+════════════════════════════════════════════════════════
                     """.trimMargin()
                     }
                 }
