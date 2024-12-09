@@ -35,39 +35,47 @@ fun runMenu() {
 }
 
 fun mainMenu() = readNextInt(
-    """ 
-         > -----------------------------------------------------  
-         > |                  FLOWER TRACKER APP               |
-         > -----------------------------------------------------  
-         > | FLOWER MENU                                       |
-         > |   1) Add a flower                                 |
-         > |   2) List flowers                                 |
-         > |   3) Update a flower                              |
-         > |   4) Delete a flower                              |
-         > |   5) Change flowers blooming status               |
-         > -----------------------------------------------------  
-         > | VARIANT MENU                                      |
-         > |   6) Add variant to a flower                      |
-         > |   7) Update variant contents on a flower          |
-         > |   8) Delete variant from a flower                 | 
-         > |   9) Change variant availability status           | 
-         > -----------------------------------------------------  
-         > | REPORT MENU FOR FLOWERS                           | 
-         > |   10) Search for all flowers (by flower name)     |
-         > |   11) .....                                       |
-         > |   12) .....                                       |
-         > |   13) .....                                       |
-         > |   14) .....                                       |
-         > -----------------------------------------------------  
-         > | REPORT MENU FOR VARIANTS                          |                                
-         > |   15) Search for all variants (by variant name)   |
-         > |   17) .....                                       |
-         > |   18) .....                                       |
-         > |   19) .....                                       |
-         > -----------------------------------------------------  
-         > |   0) Exit                                         |
-         > -----------------------------------------------------  
-         > ==>> """.trimMargin(">")
+    """
+      🌼🌸🌷🌺  FLOWER TRACKER APP  🌺🌷🌸🌼
+════════════════════════════════════════════════════════
+
+                    FLOWER MENU:
+1)      Add a flower
+2)      List flowers
+3)      Update a flower
+4)      Delete a flower
+5)      Change flowers blooming status
+
+════════════════════════════════════════════════════════
+
+                   VARIANT MENU:
+6)      Add variant to a flower
+7)      Update variant contents on a flower
+8)      Delete variant from a flower
+9)      Change variant availability status
+
+════════════════════════════════════════════════════════
+
+            💐 REPORT MENU FOR FLOWERS:
+10)     Search for all flowers (by flower name)
+11)     ...
+12)     ...
+13)     ...
+14)     ...
+
+════════════════════════════════════════════════════════
+
+            🌿 REPORT MENU FOR VARIANTS:
+15)     Search for all variants (by variant name)
+16)     List all available Variants in stock
+17)     ...
+18      ...
+
+════════════════════════════════════════════════════════
+
+0)      Exit
+════════════════════════════════════════════════════════
+""".trimMargin(">")
 )
 
 //------------------------------------
@@ -95,10 +103,10 @@ fun listFlowers() {
 
         val option = readNextInt(
             """
-                  > --------------------------------------------
-                  > |   1) View all flowers                    |
-                  > |   2) View Currently blooming flowers     |
-                  > --------------------------------------------
+════════════════════════════════════════════════════════
+1)      View all flowers                    
+2)      View Currently blooming flowers     
+════════════════════════════════════════════════════════
          > ==>> """.trimMargin(">")
         )
 
@@ -168,27 +176,27 @@ fun bloomFlower() {
             changeStatus = readNextChar("The flower is currently in season... do you want to mark it as out of season? (Y for yes): ")
             if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                 flower.inSeason = false
-            println("You have changed this flowers status to out of season")
-        }
+                println("You have changed this flowers status to out of season")
+            }
             else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
                 println("This flowers status has not changed")
             }
-        else {
-            println("invalid option")
-        }
+            else {
+                println("invalid option")
+            }
         }
         else {
             changeStatus = readNextChar("The flower is currently out of season... do you want to mark it as in season? (Y for yes): ")
             if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                 flower.inSeason = true
                 println("You have changed this flowers status to in season")
-        }
+            }
             else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
                 println("This flowers status has not changed")
             }
-        else {
-            println("invalid option")
-        }
+            else {
+                println("invalid option")
+            }
         }
     }
 }
@@ -205,7 +213,7 @@ private fun addVariantToFlower() {
                 colour = readNextLine("\t What is the Colour: "),
                 isAvailable = readNextLine("\t Is it available (true or false): ").toBoolean(),
                 price = readNextLine("\t What is the Price: ").toDoubleOrNull() ?: 0.0
-        )))
+            )))
             println("Add Successful!")
         else println("Add NOT Successful")
     }
@@ -258,7 +266,7 @@ fun markVariantStatus() {
                 changeStatus = readNextChar("The Variant is currently available...do you want to mark it as unavailable? (Y for yes): ")
                 if ((changeStatus == 'Y') ||  (changeStatus == 'y')) {
                     variant.isAvailable = false
-                println("You have changed this variants status to unavailable")
+                    println("You have changed this variants status to unavailable")
                 }
                 else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
                     println("This variants status has not changed")
@@ -271,14 +279,14 @@ fun markVariantStatus() {
                 changeStatus = readNextChar("The Variant is currently unavailable...do you want to mark it as available? (Y for yes): ")
                 if ((changeStatus == 'Y') ||  (changeStatus == 'y')){
                     variant.isAvailable = true
-                println("You have changed this variants status to available")
-            }
+                    println("You have changed this variants status to available")
+                }
                 else if ((changeStatus == 'N') ||  (changeStatus == 'n')){
                     println("This variants status has not changed")
                 }
-            else {
-                println("invalid option")
-            }
+                else {
+                    println("invalid option")
+                }
             }
         }
     }
@@ -334,9 +342,9 @@ private fun askUserToChooseFlower(): Flower? {
         val flower = flowerAPI.findFlower(readNextInt("\nEnter the id of the flower: "))
         if (flower != null) {
 
-                return flower //chosen flower is active
-            }
-         else {
+            return flower //chosen flower is active
+        }
+        else {
             println("Flower id is not valid")
         }
     }
