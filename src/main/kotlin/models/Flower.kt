@@ -56,20 +56,31 @@ fun update(id: Int, newVariant : Variant): Boolean {
         val variantsList = if (variants.isEmpty())
         {"No variants added" }
         else {
-            variants.joinToString("\n") { variant ->
-                """ 
-                |   ID: ${variant.variantId}
-                |   Name: ${variant.variantName},
-                |    Expected Blooming Time(${variant.expectedBLoomLife} days),
-                |    Colour (${variant.colour}),
-                |    Available (${if (variant.isAvailable) "Yes" else "No"}),
-                |    Price: €${variant.price}
-                |    
-            """.trimMargin()
+            variants.joinToString("\n") { variant ->"""
+         ═════════════════════════
+                  🪻🪻🪻
+         ID: ${variant.variantId}
+         Name: ${variant.variantName},
+         Expected Blooming Time (${variant.expectedBLoomLife} days),
+         Colour (${variant.colour},
+         Available (${if (variant.isAvailable) "Yes" else "No"}),
+         Price (€${variant.price})
+                  🪻🪻🪻
+         ═════════════════════════
+                    """.trimMargin()
             }
         }
-        return """$flowerId: $flowerName, In season($inSeason), Average Height($averageHeight), meaning($meaning),
-            | variants [$variantsList] """.trimMargin()
+        return """
+════════════════════════════════════════════════════════
+                         🌷🌷🌷
+    ${flowerId}: ${flowerName}
+         In season($inSeason),
+         Average Height($averageHeight),
+         meaning($meaning),
+         variants: 
+$variantsList
+                        🌷🌷🌷
+════════════════════════════════════════════════════════""".trimMargin()
     }
 
     fun checkVariantAvailableStatus(): Boolean {

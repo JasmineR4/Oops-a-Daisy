@@ -75,7 +75,7 @@ fun mainMenu() = readNextInt(
 )
 
 //------------------------------------
-//FLOWER MENU
+//🌸THE FLOWER MENU🌸
 //------------------------------------
 fun addFlower() {
     val flowerName = readNextLine("What is the name of the flower? : ")
@@ -259,7 +259,7 @@ fun bloomFlower() {
 }
 
 //-------------------------------------------
-//VARIANT MENU (only available for active flowers)
+//🌸VARIANT MENU🌸
 //-------------------------------------------
 private fun addVariantToFlower() {
     val flower: Flower? = askUserToChooseFlower()
@@ -402,7 +402,7 @@ fun markVariantStatus() {
 }
 
 //------------------------------------
-//FLOWER REPORTS MENU
+//🌸FLOWER REPORTS MENU🌸
 //------------------------------------
 
 fun searchFlowers() {
@@ -420,7 +420,7 @@ fun searchFlowers() {
 }
 
 //------------------------------------
-//VARIANT REPORTS MENU
+//🌸VARIANT REPORTS MENU🌸
 //------------------------------------
 fun searchVariants() {
     val searchName = readNextLine("Enter the Variant Name to search by: ")
@@ -444,18 +444,18 @@ fun listAvailableVariants() {
 }
 
 //------------------------------------
-// Exit App
+// 🌸Exit App🌸
 //------------------------------------
 fun exitApp() {
     println("""
 ═════════════════════════════════════════════════════════
-                   🌻Exiting, Goodbye🌻
+                  🌻Exiting, Goodbye🌻
 ═════════════════════════════════════════════════════════
          """.trimMargin(">"))
     exitProcess(0)
 }
 
-//HELPER FUNCTIONS
+//🌸HELPER FUNCTIONS🌸
 
 private fun askUserToChooseFlower(): Flower? {
     listFlowers()

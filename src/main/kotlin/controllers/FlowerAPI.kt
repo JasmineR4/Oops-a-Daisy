@@ -42,17 +42,6 @@ class FlowerAPI() {
         return false
     }
 
-    /* fun archiveFlower(id: Int): Boolean {
-        val foundFlower = findFlower(id)
-        if (( foundFlower != null) && (!foundFlower.isFlowerArchived)
-        //  && ( foundFlower.checkFlowerCompletionStatus())
-        ){
-            foundFlower.isFlowerArchived = true
-            return true
-        }
-        return false
-    }
-*/
     // ----------------------------------------------
     //  LISTING METHODS FOR FLOWER ArrayList
     // ----------------------------------------------
@@ -96,9 +85,9 @@ class FlowerAPI() {
 
     fun searchVariantsByName(searchString: String): String {
         return if (numberOfFlowers() == 0) { """
-            ════════════════════════════════════════════════════════
-            🌻No flowers stored🌻
-            ════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════
+                🌻No flowers stored🌻
+════════════════════════════════════════════════════════
             """.trimMargin()
         } else {
             var listOfFlowers = ""
