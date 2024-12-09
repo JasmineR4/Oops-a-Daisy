@@ -5,6 +5,6 @@ data class Variant(
     var variantName: String,
     var expectedLifespan: Int,
     var colour: String,
-    var isAvailable: Boolean = true,
+    var isAvailable: Boolean = false,
     var price: Double
 )

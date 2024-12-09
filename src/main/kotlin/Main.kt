@@ -5,6 +5,7 @@ import ie.setu.models.Flower
 import ie.setu.models.Variant
 import ie.setu.utils.readNextInt
 import ie.setu.utils.readNextLine
+import ie.setu.utils.readNextChar
 import kotlin.system.exitProcess
 
 private val flowerAPI = FlowerAPI()
@@ -22,8 +23,8 @@ fun runMenu() {
             5 -> addVariantToFlower()
             6 -> updateVariantContentsInFlower()
             7 -> deleteAVariant()
-            //9 -> markVariantStatus()
-            10 -> searchFlowers()
+            8 -> markVariantStatus()
+            9 -> searchFlowers()
             //15 -> searchVariants()
             //16 -> listToDoVariants()
             0 -> exitApp()
@@ -47,6 +48,7 @@ fun mainMenu() = readNextInt(
          > |   5) Add variant to a flower                      |
          > |   6) Update variant contents on a flower          |
          > |   7) Delete variant from a flower                 | 
+         > |   8) Change variant availability status           | 
          > -----------------------------------------------------  
          > | REPORT MENU FOR FLOWERS                           | 
          > |   9) Search for all flowers (by flower name)      |
@@ -71,10 +73,13 @@ fun mainMenu() = readNextInt(
 //------------------------------------
 fun addFlower() {
     val flowerName = readNextLine("Enter a name for the flower: ")
-    val bloomingSeason = readNextLine("Enter the season it blooms in: ")
+    val bloomingSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
     val averageHeight = readNextLine("Enter the average height: ").toDoubleOrNull() ?: 0.0
     val meaning = readNextLine("Enter the flowers meaning: ")
-    val isAdded = flowerAPI.add(Flower(flowerName = flowerName, bloomingSeason = bloomingSeason, averageHeight = averageHeight, meaning = meaning))
+    val isAdded = flowerAPI.add(Flower(flowerName = flowerName,
+        bloomingSeason = bloomingSeason,
+        averageHeight = averageHeight,
+        meaning = meaning))
 
     if (isAdded) {
         println("Added Successfully")
@@ -116,12 +121,16 @@ fun updateFlower() {
         val id = readNextInt("Enter the id of the flower to update: ")
         if (flowerAPI.findFlower(id) != null) {
             val flowerName = readNextLine("Enter a name for the flower: ")
-            val bloomingSeason = readNextLine("Enter the Season it blooms in: ")
+            val bloomingSeason = readNextLine("The Flower is in season (true or false): ").toBoolean()
             val averageHeight = readNextLine("Enter the height of the flower: ").toDoubleOrNull() ?: 0.0
             val meaning = readNextLine("Enter the meaning of the flower: ")
 
             // pass the index of the flower and the new flower details to FlowerAPI for updating and check for success.
-            if (flowerAPI.update(id, Flower(0, flowerName, bloomingSeason, averageHeight, meaning))){
+            if (flowerAPI.update(id, Flower(0,
+                    flowerName,
+                    bloomingSeason,
+                    averageHeight,
+                    meaning))){
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -169,7 +178,7 @@ fun updateVariantContentsInFlower() {
     if (flower != null) {
         val variant: Variant? = askUserToChooseVariant(flower)
         if (variant != null) {
-            val newContents = readNextLine("Enter new contents: ")
+            //val newContents = readNextLine("Enter new contents: ")
             if (flower.update(variant.variantId, Variant(
                     variantName = readNextLine("\t What is the Variants Name: "),
                     expectedLifespan = readNextInt("\t What is the expected lifespan: "),
@@ -197,6 +206,26 @@ fun deleteAVariant() {
                 println("Deleted Successfully!")
             } else {
                 println("Delete NOT Successful")
+            }
+        }
+    }
+}
+
+fun markVariantStatus() {
+    val flower: Flower? = askUserToChooseFlower()
+    if (flower != null) {
+        val variant: Variant? = askUserToChooseVariant(flower)
+        if (variant != null) {
+            var changeStatus = 'X'
+            if (variant.isAvailable) {
+                changeStatus = readNextChar("The Variant is currently available...do you want to mark it as unavailable?")
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                    variant.isAvailable = false
+            }
+            else {
+                changeStatus = readNextChar("The Variant is currently unavailable...do you want to mark it as available?")
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                    variant.isAvailable = true
             }
         }
     }
